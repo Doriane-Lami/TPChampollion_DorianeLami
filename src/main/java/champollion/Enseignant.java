@@ -2,7 +2,6 @@ package champollion;
 
 import static java.lang.Math.round;
 import java.util.LinkedList;
-import java.util.Map;
 import java.util.TreeSet;
 
 public class Enseignant extends Personne {
