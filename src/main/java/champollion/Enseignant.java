@@ -8,8 +8,8 @@ import java.util.TreeSet;
 public class Enseignant extends Personne {
 
     protected final LinkedList<Intervention> myInterventions = new LinkedList<>();
-    private final LinkedList<ServicePrevu> myServicesPrevus = new LinkedList<>();
-    // TODO : rajouter les autres méthodes présentes dans le diagramme UML
+    protected final LinkedList<ServicePrevu> myServicesPrevus = new LinkedList<>();
+
     protected TreeSet<UE> lesUEsEnseignes = new TreeSet<>();
 
     public Enseignant(String nom, String email) {
@@ -68,7 +68,6 @@ public class Enseignant extends Personne {
     }
 
 
-
     /**
      * Ajoute un enseignement au service prévu pour cet enseignant
      *
@@ -87,39 +86,34 @@ public class Enseignant extends Personne {
         if (inter == null) {
             throw new IllegalArgumentException("Il n'y a pas d'intervention");
         } else {
-            this.myInterventions.add(inter);
+            System.out.println("L'intervention a été ajoutée à sa création");
         }
     }
 
     public int resteAPlanifier(UE ue, TypeIntervention type) {
-        int heuresCM = 0;
-        int heuresTD = 0;
-        int heuresTP = 0;
-        int resteCM = 0;
-        int resteTD = 0;
-        int resteTP = 0;
+        int prevu = 0;
+        int planifie = 0;
 
-        for (Intervention inter : myInterventions) {
-            if (inter.appartenirUE(ue)) {
-                if (inter.getType().equals("CM")) {
-                    heuresCM = inter.getDuree();
-                }
-                if (inter.getType().equals("TD")) {
-                    heuresTD = inter.getDuree();
-                }
-                if (inter.getType().equals("TP")) {
-                    heuresTP = inter.getDuree();
-                }
-            }
-        }
         for (ServicePrevu service : myServicesPrevus) {
             if (service.getUe() == ue) {
-                resteCM = service.getVolCM() - heuresCM;
-                resteTD = service.getVolTD() - heuresTD;
-                resteTP = service.getVolTP() - heuresTP;
+                if (type.equals(TypeIntervention.CM)) {
+                    prevu = prevu + service.getVolCM();
+                }
+                if (type.equals(TypeIntervention.TD)) {
+                    prevu = prevu + service.getVolTD();
+                }
+                if (type.equals(TypeIntervention.TP)) {
+                    prevu = prevu + service.getVolTP();
+                }
             }
         }
-        return resteCM + resteTD + resteTP;
+        for (Intervention inter : myInterventions) {
+            if (inter.getType() == type && inter.appartenirUE(ue)) {
+                planifie = planifie + inter.getDuree();
+            }
+        }
+        return prevu - planifie;
     }
+
 
 }

@@ -8,7 +8,7 @@ public class ServicePrevu {
     protected Enseignant prof;
     protected UE ue;
 
-    public ServicePrevu(UE ue, Enseignant prof, int volumeCM, int volumeTP, int volumeTD) {
+    public ServicePrevu(UE ue, Enseignant prof, int volumeCM, int volumeTD, int volumeTP) {
         this.volumeCM = volumeCM;
         this.volumeTD = volumeTD;
         this.volumeTP = volumeTP;
