@@ -14,12 +14,15 @@ public class Intervention {
     protected HashMap<Intervention, Salle> mySalles = new HashMap<>();
     public HashMap<UE, Intervention> myUE = new HashMap<>();
 
-    public Intervention(Date debut, int duree, boolean annulee, int heureDebut, TypeIntervention type){
+    public Intervention(Date debut, int duree, boolean annulee, int heureDebut, TypeIntervention type, UE ue, Enseignant prof){
         this.debut = debut;
         this.duree = duree;
         this.annulee = annulee;
         this.heureDebut = heureDebut;
         this.type = type;
+        
+        myUE.put(ue, this);
+        prof.myInterventions.add(this);
     }
 
     public void Reservation(Salle salle){
@@ -30,21 +33,40 @@ public class Intervention {
         return mySalles;
     }
 
-    public void concerne(UE ue){
-        myUE.put(ue, this);
+//    public void concerne(UE ue){
+//        myUE.put(ue, this);
+//    }
+    
+    public boolean appartenirUE(UE ue){
+        return myUE.containsKey(ue);
     }
+    
+    
+//    public boolean appartenirUE(UE ue){
+//        if(myUE.containsKey(ue)){
+//            return true;
+//        }
+//        else{
+//            return false;
+//        }
+//    }
 
-    public HashMap<UE, Intervention> getMyInterventions() {
+    public HashMap<UE, Intervention> getMyUE() {
         return myUE;
     }
     
-    public void etreEffectuee(Enseignant prof){
-        prof.myInterventions.add(this);
-    }
+//    public void etreEffectuee(Enseignant prof){
+//        prof.myInterventions.add(this);
+//    }
 
     public int getDuree() {
         return duree;
     }
+
+    public TypeIntervention getType() {
+        return type;
+    }
+    
     
 
 }

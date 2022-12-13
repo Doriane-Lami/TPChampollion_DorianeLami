@@ -5,11 +5,15 @@ public class ServicePrevu {
     protected int volumeCM;
     protected int volumeTP;
     protected int volumeTD;
+    protected Enseignant prof;
+    protected UE ue;
 
-    public ServicePrevu(int volumeCM, int volumeTP, int volumeTD) {
-        this.volumeCM = 0;
-        this.volumeTD = 0;
-        this.volumeTP = 0;
+    public ServicePrevu(UE ue, Enseignant prof, int volumeCM, int volumeTP, int volumeTD) {
+        this.volumeCM = volumeCM;
+        this.volumeTD = volumeTD;
+        this.volumeTP = volumeTP;
+        this.ue = ue;
+        this.prof = prof;
     }
 
     public void ajouterCM(int nbHeuresCM) {
@@ -35,4 +39,10 @@ public class ServicePrevu {
     public int getVolTP() {
         return volumeTP;
     }
+
+    public UE getUe() {
+        return ue;
+    }
+    
+    
 }

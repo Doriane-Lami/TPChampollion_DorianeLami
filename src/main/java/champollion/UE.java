@@ -4,7 +4,7 @@ public class UE {
     private final String myIntitule;
 
 
-    public UE(String intitule, int heuresCM, int heuresTP, int heuresTD) {
+    public UE(String intitule) {
         myIntitule = intitule;
     }
 
