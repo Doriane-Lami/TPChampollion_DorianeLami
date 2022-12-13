@@ -7,10 +7,12 @@ public class Enseignant extends Personne {
     // TODO : rajouter les autres méthodes présentes dans le diagramme UML
 
     private final LinkedList<Intervention> myInterventions = new LinkedList<>();
+    private final LinkedList<ServicePrevu> myServicess = new LinkedList<>();
 
     public Enseignant(String nom, String email) {
         super(nom, email);
     }
+
 
     public void ajouterIntervention(Intervention inter){
         myInterventions.add(inter);
@@ -27,7 +29,10 @@ public class Enseignant extends Personne {
      */
     public int heuresPrevues() {
         // TODO: Implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        //throw new UnsupportedOperationException("Pas encore implémenté");
+        for(ServicePrevu service : myServicess){
+
+        }
     }
 
     /**
@@ -42,6 +47,7 @@ public class Enseignant extends Personne {
     public int heuresPrevuesPourUE(UE ue) {
         // TODO: Implémenter cette méthode
         throw new UnsupportedOperationException("Pas encore implémenté");
+
     }
 
     /**
