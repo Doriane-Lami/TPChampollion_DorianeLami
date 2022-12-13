@@ -1,15 +1,16 @@
 package champollion;
 
 import static java.lang.Math.round;
+
 import java.util.LinkedList;
 import java.util.TreeSet;
 
 public class Enseignant extends Personne {
 
-    // TODO : rajouter les autres méthodes présentes dans le diagramme UML
-    protected TreeSet<UE> lesUEsEnseignes = new TreeSet<>();
     protected final LinkedList<Intervention> myInterventions = new LinkedList<>();
     private final LinkedList<ServicePrevu> myServicesPrevus = new LinkedList<>();
+    // TODO : rajouter les autres méthodes présentes dans le diagramme UML
+    protected TreeSet<UE> lesUEsEnseignes = new TreeSet<>();
 
     public Enseignant(String nom, String email) {
         super(nom, email);
@@ -23,19 +24,12 @@ public class Enseignant extends Personne {
      *
      * @return le nombre total d'heures "équivalent TD" prévues pour cet
      * enseignant, arrondi à l'entier le plus proche
-     *
      */
     public int heuresPrevues() {
 
         double total = 0;
-        for (Intervention inter : myInterventions) {
-            if (inter.getClass().equals("CM")) {
-                total = total + inter.getDuree() * 1.5;
-            } else if (inter.getClass().equals("TD")) {
-                total = total + inter.getDuree();
-            } else if (inter.getClass().equals("TP")) {
-                total = total + inter.getDuree() * 0.75;
-            }
+        for (ServicePrevu service : myServicesPrevus) {
+            total = total + service.getVolCM() * 1.5 + service.getVolTD() + service.getVolTP() * 0.75;
         }
         return (int) round(total);
     }
@@ -57,39 +51,34 @@ public class Enseignant extends Personne {
      * @param ue l'UE concernée
      * @return le nombre total d'heures "équivalent TD" prévues pour cet
      * enseignant, arrondi à l'entier le plus proche
-     *
      */
     public int heuresPrevuesPourUE(UE ue) {
         if (ue == null) {
             throw new IllegalArgumentException("Il n'y a pas d'ue ");
         } else {
             double total = 0;
-            for (Intervention inter : myInterventions) {
-                if (inter.appartenirUE(ue)) {
-                    if (inter.getClass().equals("CM")) {
-                        total = total + inter.getDuree() * 1.5;
-                    } else if (inter.getClass().equals("TD")) {
-                        total = total + inter.getDuree();
-                    } else if (inter.getClass().equals("TP")) {
-                        total = total + inter.getDuree() * 0.75;
-                    }
+            for (ServicePrevu service : myServicesPrevus) {
+                if (service.getUe().equals(ue)) {
+                    total = total + service.getVolCM() * 1.5 + service.getVolTD() + service.getVolTP() * 0.75;
                 }
             }
             return (int) round(total);
         }
+
     }
+
+
 
     /**
      * Ajoute un enseignement au service prévu pour cet enseignant
      *
-     * @param ue l'UE concernée
+     * @param ue       l'UE concernée
      * @param volumeCM le volume d'heures de cours magitral
      * @param volumeTD le volume d'heures de TD
      * @param volumeTP le volume d'heures de TP
      */
     public void ajouteEnseignement(UE ue, int volumeCM, int volumeTD, int volumeTP) {
-        // TODO: Implémenter cette méthode
-        //throw new UnsupportedOperationException("Pas encore implémenté");
+
         ServicePrevu enseignement = new ServicePrevu(ue, this, volumeCM, volumeTD, volumeTP);
         this.myServicesPrevus.add(enseignement);
     }
