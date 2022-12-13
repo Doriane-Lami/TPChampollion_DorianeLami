@@ -1,53 +1,62 @@
 package champollion;
 
+import static java.lang.Math.round;
 import java.util.LinkedList;
 
 public class Enseignant extends Personne {
 
     // TODO : rajouter les autres méthodes présentes dans le diagramme UML
-
-    private final LinkedList<Intervention> myInterventions = new LinkedList<>();
+    protected final LinkedList<Intervention> myInterventions = new LinkedList<>();
     private final LinkedList<ServicePrevu> myServicess = new LinkedList<>();
 
     public Enseignant(String nom, String email) {
         super(nom, email);
     }
 
-
-    public void ajouterIntervention(Intervention inter){
+    public void ajouterIntervention(Intervention inter) {
         myInterventions.add(inter);
     }
 
-
     /**
-     * Calcule le nombre total d'heures prévues pour cet enseignant en "heures équivalent TD" Pour le calcul : 1 heure
-     * de cours magistral vaut 1,5 h "équivalent TD" 1 heure de TD vaut 1h "équivalent TD" 1 heure de TP vaut 0,75h
-     * "équivalent TD"
+     * Calcule le nombre total d'heures prévues pour cet enseignant en "heures
+     * équivalent TD" Pour le calcul : 1 heure de cours magistral vaut 1,5 h
+     * "équivalent TD" 1 heure de TD vaut 1h "équivalent TD" 1 heure de TP vaut
+     * 0,75h "équivalent TD"
      *
-     * @return le nombre total d'heures "équivalent TD" prévues pour cet enseignant, arrondi à l'entier le plus proche
+     * @return le nombre total d'heures "équivalent TD" prévues pour cet
+     * enseignant, arrondi à l'entier le plus proche
      *
      */
     public int heuresPrevues() {
-        // TODO: Implémenter cette méthode
-        //throw new UnsupportedOperationException("Pas encore implémenté");
-        for(ServicePrevu service : myServicess){
-
+        double total = 0;
+        for (Intervention inter : myInterventions) {
+            if (inter.getClass().equals("CM")) {
+                total = total + inter.getDuree() * 1.5;
+            } else if (inter.getClass().equals("TD")) {
+                total = total + inter.getDuree();
+            } else if (inter.getClass().equals("TP")) {
+                total = total + inter.getDuree() * 0.75;
+            }
         }
+        return (int) round(total);
+
     }
 
     /**
-     * Calcule le nombre total d'heures prévues pour cet enseignant dans l'UE spécifiée en "heures équivalent TD" Pour
-     * le calcul : 1 heure de cours magistral vaut 1,5 h "équivalent TD" 1 heure de TD vaut 1h "équivalent TD" 1 heure
-     * de TP vaut 0,75h "équivalent TD"
+     * Calcule le nombre total d'heures prévues pour cet enseignant dans l'UE
+     * spécifiée en "heures équivalent TD" Pour le calcul : 1 heure de cours
+     * magistral vaut 1,5 h "équivalent TD" 1 heure de TD vaut 1h "équivalent
+     * TD" 1 heure de TP vaut 0,75h "équivalent TD"
      *
      * @param ue l'UE concernée
-     * @return le nombre total d'heures "équivalent TD" prévues pour cet enseignant, arrondi à l'entier le plus proche
+     * @return le nombre total d'heures "équivalent TD" prévues pour cet
+     * enseignant, arrondi à l'entier le plus proche
      *
      */
     public int heuresPrevuesPourUE(UE ue) {
         // TODO: Implémenter cette méthode
         throw new UnsupportedOperationException("Pas encore implémenté");
-
+        
     }
 
     /**

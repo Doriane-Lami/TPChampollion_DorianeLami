@@ -10,14 +10,16 @@ public class Intervention {
     public int duree;
     public boolean annulee;
     private int heureDebut;
+    public TypeIntervention type;
     protected HashMap<Intervention, Salle> mySalles = new HashMap<>();
     public HashMap<UE, Intervention> myUE = new HashMap<>();
 
-    public Intervention(Date debut, int duree, boolean annulee, int heureDebut){
+    public Intervention(Date debut, int duree, boolean annulee, int heureDebut, TypeIntervention type){
         this.debut = debut;
         this.duree = duree;
         this.annulee = annulee;
         this.heureDebut = heureDebut;
+        this.type = type;
     }
 
     public void Reservation(Salle salle){
@@ -35,6 +37,14 @@ public class Intervention {
     public HashMap<UE, Intervention> getMyInterventions() {
         return myUE;
     }
+    
+    public void etreEffectuee(Enseignant prof){
+        prof.myInterventions.add(this);
+    }
 
+    public int getDuree() {
+        return duree;
+    }
+    
 
 }
