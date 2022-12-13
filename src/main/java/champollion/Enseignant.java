@@ -1,12 +1,21 @@
 package champollion;
 
+import java.util.LinkedList;
+
 public class Enseignant extends Personne {
 
     // TODO : rajouter les autres méthodes présentes dans le diagramme UML
 
+    private final LinkedList<Intervention> myInterventions = new LinkedList<>();
+
     public Enseignant(String nom, String email) {
         super(nom, email);
     }
+
+    public void ajouterIntervention(Intervention inter){
+        myInterventions.add(inter);
+    }
+
 
     /**
      * Calcule le nombre total d'heures prévues pour cet enseignant en "heures équivalent TD" Pour le calcul : 1 heure
